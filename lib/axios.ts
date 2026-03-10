@@ -1,21 +1,26 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import axios from 'axios';
 
+const handleLogout = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/signin';
+  }
+};
 
-import { handleLogout } from '@/modules/auth/utils'; 
-
-const axiosInstance: AxiosInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1',
   timeout: 10000,
-  withCredentials: true,
+  withCredentials:true,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 });
 
-// Request Interceptor
+
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  (config) => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('token');
       if (token) {
@@ -27,13 +32,12 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response Interceptor
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response) => response,
   (error) => {
     const originalRequest = error.config;
-
-    if (error.response && error.response.status === 401 && !originalRequest?._retry) {
+    
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       console.warn('Session expired or Unauthorized. Logging out...');
       handleLogout();
     }
@@ -42,4 +46,5 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+export { handleLogout };
 export default axiosInstance;

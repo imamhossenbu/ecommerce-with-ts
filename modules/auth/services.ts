@@ -2,7 +2,7 @@ import axiosInstance from '@/lib/axios';
 import { AuthResponse } from './types';
 
 export const loginUser = async (credentials: object): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post('/auth/login', credentials);
+  const { data } = await axiosInstance.post<AuthResponse>('/auth/login', credentials);
   return data;
 };
 

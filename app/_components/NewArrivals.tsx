@@ -1,0 +1,63 @@
+"use client"
+import React, { useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import ProductCard from '@/components/shared/ProductCard';
+import ProductSkeleton from '@/components/shared/skeleton/ProductSkeleton';
+import { getNewArrivals } from '@/modules/shop/services';
+import Link from 'next/link';
+import { IProduct } from '@/modules/shop/types'; 
+
+export default function NewArrivals() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const res = await getNewArrivals();
+        if (res.success) {
+          setProducts(res.data);
+        }
+      } catch (error) {
+        console.error("Error fetching new arrivals:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  return (
+    <section className="py-20 bg-white">
+      <div className="site-container">
+        <div className="flex justify-between items-end mb-10">
+          <h2 className="text-[28px] font-medium text-primary leading-none">
+            New Arrivals
+          </h2>
+          <Link 
+            href="/shop?sort=newest" 
+            className="flex items-center gap-2 text-secondary hover:text-accent transition-colors text-[14px] font-medium border-b border-transparent hover:border-accent pb-1"
+          >
+            View all products <ArrowRight size={18} strokeWidth={1.5} />
+          </Link>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {loading ? (
+            <ProductSkeleton cards={4} />
+          ) : (
+            products.map((item) => (
+              <ProductCard key={item._id} product={item} />
+            ))
+          )}
+        </div>
+
+        {/* Empty State */}
+        {!loading && products.length === 0 && (
+          <p className="text-center text-secondary py-10">No new arrivals at the moment.</p>
+        )}
+      </div>
+    </section>
+  );
+}

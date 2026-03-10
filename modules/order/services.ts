@@ -1,7 +1,7 @@
 import axiosInstance from '@/lib/axios';
 
 export const createCheckoutSession = async (paymentData: object) => {
-  const { data } = await axiosInstance.post('/payment/create-checkout-session', paymentData);
+  const { data } = await axiosInstance.post('/orders/create-checkout-session', paymentData);
   return data;
 };
 

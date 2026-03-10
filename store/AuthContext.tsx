@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import axiosInstance from '@/lib/axios';
+import axiosInstance from '../lib/axios'; 
 import toast from 'react-hot-toast';
-import { User } from '@/modules/auth/types'; 
+
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: "admin" | "user";
+  profileImage?: string;
+}
 
 
 interface AuthContextType {
@@ -22,16 +30,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      try {
-        setUserState(JSON.parse(savedUser));
-      } catch (error) {
-        console.error("Failed to parse user from storage", error);
-        localStorage.removeItem('user');
+    const initAuth = () => {
+      if (typeof window !== 'undefined') {
+        const savedUser = localStorage.getItem('user');
+        const savedToken = localStorage.getItem('token');
+
+        if (savedUser && savedToken) {
+          try {
+            const parsedUser = JSON.parse(savedUser);
+            setUserState(parsedUser);
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
+          } catch (error) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+          }
+        }
       }
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+
+    initAuth();
   }, []);
 
   const setUser = (userData: User | null) => {
@@ -41,6 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        delete axiosInstance.defaults.headers.common['Authorization'];
       }
     }
     setUserState(userData);
@@ -49,6 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const setAuthData = (userData: User, token: string) => {
     if (token && typeof window !== 'undefined') {
       localStorage.setItem('token', token);
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
     setUser(userData);
   };
@@ -77,3 +97,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthContext;

@@ -108,11 +108,11 @@ export default function Navbar() {
   {/* User Toggle Button */}
   <button 
     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-    className="pt-1 hover:text-pink-500 transition-colors focus:outline-none"
+    className="pt-3 hover:text-pink-500 transition-colors focus:outline-none"
   >
-    {user?.avatar ? (
+    {user?.profileImage ? (
       <img 
-        src={user.avatar} 
+        src={user.profileImage} 
         className="w-7 h-7 rounded-full object-cover border border-pink-100" 
         alt="User Profile" 
       />

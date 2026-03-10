@@ -15,6 +15,8 @@ export interface IProduct {
   isNew: boolean;
   createdAt?: string;
   updatedAt?: string;
+  avgRating:number;
+    totalReviews:number;
 }
 
 
