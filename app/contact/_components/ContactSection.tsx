@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import contactImg from '../../../../public/assets/contact1.png'; 
+import contactImg from '@/public/contact/contact1.png'; 
 
 const ContactSection = () => {
   return (

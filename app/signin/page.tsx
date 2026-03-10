@@ -25,7 +25,7 @@ export default function Login() {
     }
   }, [user, router]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
@@ -36,7 +36,11 @@ export default function Login() {
 
       if (res.success && res.data) {
         const { token, ...userData } = res.data as any; 
+        
+        toast.success("Login successful!", { id: loadingToast });
+        
         login(userData, token); 
+        
         router.push("/");
       }
     } catch (err: any) {
@@ -45,6 +49,7 @@ export default function Login() {
       toast.error(msg, { id: loadingToast });
     } finally {
       setIsLoading(false);
+      toast.dismiss(loadingToast); 
     }
   };
 

@@ -6,11 +6,19 @@ export const createCheckoutSession = async (paymentData: object) => {
 };
 
 export const getUserOrders = async () => {
-  const { data } = await axiosInstance.get('/payment/my-orders');
+  const { data } = await axiosInstance.get('/orders/my-orders');
   return data;
 };
 
 export const updateOrderStatus = async (orderId: string, status: string) => {
   const { data } = await axiosInstance.patch(`/payment/update-order-status/${orderId}`, { status });
   return data;
+};
+
+
+
+export const getOrderDetailsByTranId = async (tranId:string) => {
+  const response = await axiosInstance.get(`/orders/${tranId}`);
+  console.log(response)
+  return response.data;
 };

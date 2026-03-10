@@ -12,11 +12,19 @@ export const registerUser = async (userData: object): Promise<AuthResponse> => {
 };
 
 export const updateProfile = async (formData: FormData) => {
-  const { data } = await axiosInstance.put('/auth/update-profile', formData, {
+  const { data } = await axiosInstance.patch('/users/update-profile', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
   return data;
 };
+
+
+
+export const changePassword = async (passwordData: { oldPassword: string; newPassword: string }) => {
+  const response = await axiosInstance.put('/auth/change-password', passwordData);
+  return response.data;
+};
+
 
 export const forgetPassword = (email: string) => 
   axiosInstance.post('/auth/forget-password', { email });
