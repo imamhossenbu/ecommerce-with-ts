@@ -9,7 +9,6 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/shared/logo.png";
-import { data } from "framer-motion/client";
 
 export default function ResetPasswordPage() {
   const params = useParams();
