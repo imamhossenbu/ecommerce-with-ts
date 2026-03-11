@@ -32,7 +32,7 @@ export const getNewArrivals = async (): Promise<{ success: boolean; data: IProdu
 
 
 export const addProduct = (productData: object) => 
-  axiosInstance.post('/create-product', productData);
+  axiosInstance.post('/products/create-product', productData);
 
 export const updateProduct = (id: string, data: any) => 
   axiosInstance.put(`/products/${id}`, data);
@@ -42,7 +42,7 @@ export const deleteProduct = (id: string) =>
 
 
 export const addProductImage = async (formData: FormData) => {
-  const response = await axiosInstance.post('/upload-image', formData, {
+  const response = await axiosInstance.post('/uploads/upload-single', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
   return response.data;

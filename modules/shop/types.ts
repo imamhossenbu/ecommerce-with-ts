@@ -1,5 +1,5 @@
 export interface IProduct {
-  _id?: string; 
+  _id: string; 
   name: string;
   description: string;
   straight_up?: string; 
@@ -16,7 +16,7 @@ export interface IProduct {
   createdAt?: string;
   updatedAt?: string;
   avgRating:number;
-    totalReviews:number;
+  totalReviews:number;
 }
 
 

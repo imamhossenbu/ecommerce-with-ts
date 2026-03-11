@@ -30,3 +30,44 @@ export interface IOrder {
   createdAt?: string; 
   updatedAt?: string; 
 }
+
+export interface ISalesData {
+  name: string;
+  revenue: number;
+}
+
+export interface ICategoryStat {
+  name: string;
+  value: number;
+}
+
+export interface IRecentOrder {
+  _id: string;
+  transactionId: string;
+  customerInfo: {
+    firstName: string;
+    lastName: string;
+  };
+  totalAmount: number;
+  orderStatus: string;
+}
+
+export interface ITopProduct {
+  _id: string;
+  name: string;
+  thumbnail: string;
+  salePrice: number;
+}
+
+export interface IDashboardData {
+  stats: {
+    totalRevenue: number;
+    totalOrders: number;
+    totalCustomers: number;
+    avgOrderValue: number;
+  };
+  salesData: ISalesData[];
+  categoryStats: ICategoryStat[];
+  recentOrders: IRecentOrder[];
+  topProducts: ITopProduct[];
+}
