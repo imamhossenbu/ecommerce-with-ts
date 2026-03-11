@@ -22,7 +22,7 @@ export default function Hero() {
   const images = [hero1, hero2, hero3];
 
   return (
-    <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center overflow-hidden bg-black">
+    <section className="relative h-[60vh] md:h-[90vh] w-full flex items-center overflow-hidden bg-black">
       
       {/* BACKGROUND SLIDER */}
       <div className="absolute inset-0 z-0">
