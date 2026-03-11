@@ -8,7 +8,8 @@ import { resetPassword } from "@/modules/auth/services";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../../../public/assets/logo.png";
+import logo from "@/public/shared/logo.png";
+import { data } from "framer-motion/client";
 
 export default function ResetPasswordPage() {
   const params = useParams();
@@ -36,24 +37,31 @@ export default function ResetPasswordPage() {
     try {
       setIsLoading(true);
       const res = await resetPassword(token, password);
-      console.log(res)
-
-      if (res?.success) {
+    
+      if (res?.data?.success) {
         toast.success("Password updated successfully!", { id: loadingToast });
+        setPassword("");
+        setConfirmPassword("");
+
         setTimeout(() => {
           router.push("/signin");
         }, 1500);
+      } else {
+        toast.error(res?.data?.message || "Failed to update password", { id: loadingToast });
+        setIsLoading(false); 
       }
+      
     } catch (err: any) {
-      const msg = err?.response?.data?.message || "Something went wrong";
+      const msg = err?.response?.data?.message || err?.message || "Something went wrong";
       toast.error(msg, { id: loadingToast });
+      setIsLoading(false); 
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <section className="min-h-screen bg-[#FDFBF9] flex flex-col items-center justify-center p-6 relative overflow-hidden">
+    <section className="min-h-screen bg-[#FDFBF9] flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
       {/* Background Decor */}
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-pink-100/40 rounded-full blur-3xl" />
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-orange-50/60 rounded-full blur-3xl" />
@@ -74,7 +82,6 @@ export default function ResetPasswordPage() {
           </div>
 
           <form onSubmit={handleReset} className="space-y-5">
-            {/* New Password */}
             <div className="space-y-2">
               <label className="text-[11px] font-bold uppercase tracking-widest text-neutral-400 ml-1">New Password</label>
               <div className="relative group">
@@ -98,7 +105,6 @@ export default function ResetPasswordPage() {
               </div>
             </div>
 
-            {/* Confirm Password */}
             <div className="space-y-2">
               <label className="text-[11px] font-bold uppercase tracking-widest text-neutral-400 ml-1">Confirm Password</label>
               <div className="relative group">
@@ -115,7 +121,6 @@ export default function ResetPasswordPage() {
               </div>
             </div>
 
-            {/* Password Requirement Hint */}
             <div className="flex items-center gap-2 px-1">
               <CheckCircle2 size={14} className={password.length >= 6 ? "text-green-500" : "text-neutral-200"} />
               <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">At least 6 characters</p>
@@ -126,7 +131,12 @@ export default function ResetPasswordPage() {
               disabled={isLoading}
               className="w-full bg-neutral-900 text-white py-5 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-70 shadow-xl shadow-neutral-900/10 group"
             >
-              {isLoading ? <Loader2 className="animate-spin" size={18} /> : (
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                    <Loader2 className="animate-spin" size={18} />
+                    <span>Processing...</span>
+                </div>
+              ) : (
                 <>
                   Update Password
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
