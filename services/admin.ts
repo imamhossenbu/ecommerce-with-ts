@@ -21,7 +21,7 @@ export const deleteUser = async (id:string) => {
 };
 
 
-// export const updateAdminSettings = async (settingsData) => {
-//   const response = await axiosInstance.put('/admin/update-settings', settingsData);
-//   return response.data;
-// };
+export const updateAdminSettings = async (settingsData:object) => {
+  const response = await axiosInstance.put('/admin/update-settings', settingsData);
+  return response.data;
+};
