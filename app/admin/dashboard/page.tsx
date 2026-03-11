@@ -97,7 +97,7 @@ const AdminDashboard: React.FC = () => {
         <ChartContainer title="Sales Overview" subtitle="Monthly Revenue Distribution">
           {hasSalesData ? (
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart layout="vertical" data={data.salesData} margin={{ left: -20, right: 20 }}>
+              <BarChart layout="vertical" data={data.salesData} margin={{ left: 20, right: 20 }}>
                 <XAxis type="number" hide />
                 <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} fontSize={10} fontWeight="bold" width={40} />
                 <Tooltip cursor={{fill: '#f9fafb'}} contentStyle={{ borderRadius: '10px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />

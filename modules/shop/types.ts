@@ -23,3 +23,9 @@ export interface IProduct {
 export interface CartItem extends IProduct {
   quantity: number;
 }
+export interface ICategory {
+  _id: string;
+  name: string;
+  image: string;
+  createdAt?: string;
+}

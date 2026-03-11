@@ -1,12 +1,12 @@
 import React from 'react';
-import { LucideIcon } from 'lucide-react'; // LucideIcon টাইপটি ইমপোর্ট করুন
+import { LucideIcon } from 'lucide-react'; 
 
-// ১. প্রপস ইন্টারফেস ডিফাইন করা
+
 interface StatCardProps {
   title: string;
-  value: string | number | undefined; // ডাইনামিক ভ্যালুর জন্য
-  icon: LucideIcon; // এখানে LucideIcon টাইপটি ব্যবহার করুন
-  color?: string; // অপশনাল প্রপস
+  value: string | number | undefined; 
+  icon: LucideIcon; 
+  color?: string;
   bgColor?: string;
 }
 
@@ -18,7 +18,7 @@ const StatCard = ({
   bgColor = "bg-rose-50" 
 }: StatCardProps) => {
   return (
-    <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex justify-between items-start transition-all hover:shadow-lg hover:translate-y-[-2px] duration-300">
+    <div className="bg-white px-6 py-10 rounded-[2rem] border border-gray-100 shadow-sm flex justify-between items-start transition-all hover:shadow-lg hover:translate-y-[-2px] duration-300">
       <div>
         <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.15em] mb-2">
           {title}

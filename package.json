@@ -19,6 +19,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-simple-star-rating": "^5.1.7",
     "recharts": "^3.8.0",
+    "sweetalert2": "^11.26.22",
     "swiper": "^12.1.2"
   },
   "devDependencies": {

@@ -36,13 +36,13 @@ const OrderRow = ({ orderId, customer, amount, status }: OrderRowProps) => {
     }
   };
 
-  // স্ট্যাটাস না মিললে ডিফল্ট হিসেবে 'Processing' স্টাইল দেখাবে
+
   const config = statusConfig[status] || statusConfig.Processing;
 
   return (
     <div className="flex items-center justify-between py-4 group hover:bg-gray-50/80 px-4 rounded-2xl transition-all border border-transparent hover:border-gray-100">
       <div className="flex items-center gap-4">
-        {/* আইকন কন্টেইনার */}
+     
         <div className={`w-11 h-11 ${config.color.split(' ')[0]} rounded-xl flex items-center justify-center transition-transform group-hover:rotate-6`}>
            {config.icon}
         </div>
