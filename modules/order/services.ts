@@ -11,7 +11,7 @@ export const getUserOrders = async () => {
 };
 
 export const updateOrderStatus = async (orderId: string, status: string) => {
-  const { data } = await axiosInstance.patch(`/payment/update-order-status/${orderId}`, { status });
+  const { data } = await axiosInstance.patch(`/orders/update-order-status/${orderId}`, { status });
   return data;
 };
 
@@ -19,6 +19,12 @@ export const updateOrderStatus = async (orderId: string, status: string) => {
 
 export const getOrderDetailsByTranId = async (tranId:string) => {
   const response = await axiosInstance.get(`/orders/${tranId}`);
-  console.log(response)
+  return response.data;
+
+
+};
+
+export const getAllOrders = async (params = {}) => {
+  const response = await axiosInstance.get('/orders/all-orders', { params });
   return response.data;
 };

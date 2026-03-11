@@ -48,14 +48,14 @@ const handleDelete = async (id: string) => {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#000000', 
-    cancelButtonColor: '#e35807',
+    cancelButtonColor: '#f52116',
     confirmButtonText: 'Yes, delete it!',
     cancelButtonText: 'No, cancel',
     reverseButtons: true,
     customClass: {
       popup: 'rounded-[2rem] font-sans',
       confirmButton: 'rounded-xl px-6 py-3 text-xs font-black uppercase tracking-widest',
-      cancelButton: 'rounded-xl px-6 py-3 text-xs font-black uppercase tracking-widest text-gray-500'
+      cancelButton: 'rounded-xl px-6 py-3 text-xs font-black uppercase tracking-widest text-white'
     }
   });
 
